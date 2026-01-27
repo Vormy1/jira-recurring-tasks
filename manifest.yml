@@ -1,0 +1,36 @@
+modules:
+  jira:issuePanel:
+    - key: recurring-task-panel
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      viewportSize: medium
+      title: Smart Recurring Settings
+      icon: https://test-icon.com/icon.png
+
+  scheduledTrigger:
+    - key: recurring-task-runner
+      function: taskRunner
+      interval: hour
+
+  function:
+    - key: resolver
+      handler: resolvers.handler
+    - key: taskRunner
+      handler: scheduler.run
+
+resources:
+  - key: main
+    path: src/index.jsx
+
+app:
+  id: ari:cloud:ecosystem::app/10a43a55-6c2e-45a4-b0ba-2de88b4de952
+  runtime:
+    name: nodejs22.x
+
+permissions:
+  scopes:
+    - storage:app
+    - write:jira-work
+    - read:jira-work
